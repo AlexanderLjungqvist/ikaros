@@ -24,6 +24,7 @@
     <module
         class="Nucleus"
         name="EdingerWestphal_pg"
+        beta = "0.5"
     />
 
     <!-- Edinger-Westphal nuclei ==> Ciliar Ganglion -->
@@ -44,7 +45,7 @@
 
     <module
         class="Nucleus"
-        name="SCG"
+        name="IML"
     />
 
     <!-- IML => SCG -->

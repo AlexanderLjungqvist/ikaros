@@ -28,14 +28,10 @@ void
 Nucleus::Init()
 {
     Bind(alpha, "alpha");
-    Bind(beta, "beta");
-
-    Bind(phi, "phi");
-    Bind(chi, "chi");
-    Bind(psi, "psi");
     
-    Bind(scale, "scale");
-
+    Bind(beta, "beta");
+    Bind(gamma, "gamma");
+    Bind(delta, "delta");
     Bind(epsilon, "epsilon");
 
     x = 0;
@@ -49,6 +45,17 @@ Nucleus::Init()
     shunting_inhibition_size =	GetInputSize("SHUNTING_INHIBITION");
 
     output		=	GetOutputArray("OUTPUT");
+    
+    // Set default values if parameters not set
+    
+    if(excitation_size > 0 && (GetValue("beta") == NULL || GetValue("beta")[0] =='\0'))
+        beta = 1/excitation_size;
+
+    if(inhibition_size > 0 && (GetValue("gamma") == NULL || GetValue("gamma")[0] =='\0'))
+        gamma = 1/excitation_size;
+
+    if(shunting_inhibition_size > 0 && (GetValue("delta") == NULL || GetValue("beta")[0] =='\0'))
+        delta = 1/shunting_inhibition_size;
 }
 
 
@@ -56,35 +63,20 @@ Nucleus::Init()
 void
 Nucleus::Tick()
 {
-    if(scale)
-    {
-        if(excitation_size > 0)
-            phi_scale = 1.0/float(excitation_size);
-
-        if(inhibition_size > 0)
-            chi_scale = 1.0/float(excitation_size);
-
-        if(shunting_inhibition_size > 0)
-            psi_scale = 1.0/float(shunting_inhibition_size);
-    }
-    else
-    {
-        phi_scale = 1.0;
-        chi_scale = 1.0;
-        psi_scale = 1.0;
-    }
-
-    float a = 0;
+    float a = alpha;
     float s = 1;
     
     if(shunting_inhibition)
-        s = 1/(1+psi*psi_scale*sum(shunting_inhibition, shunting_inhibition_size));
-
+    {
+        s = 1/(1+delta*sum(shunting_inhibition, shunting_inhibition_size));
+//       printf("%f %f\n", s, sum(shunting_inhibition, shunting_inhibition_size));
+    }
+    
     if(excitation)
-        a += phi * phi_scale * s * sum(excitation, excitation_size);
+        a += beta * s * sum(excitation, excitation_size);
     
      if(inhibition)
-        a -= psi * psi_scale * sum(inhibition, inhibition_size);
+        a -= gamma * sum(inhibition, inhibition_size);
 
      x += epsilon * (a - x);
     
@@ -108,12 +100,12 @@ Nucleus::Tick()
             if(x < 0)
                 *output = 0;
             else
-                *output = alpha + beta * atan(x)/atan(1);
+                *output = atan(x)/atan(1);
             break;
     }
 
 }
 
-static InitClass init("Nucleus", &Nucleus::Create, "Source/Modules/BrainModels/Nucleus/");
+static InitClass init("Nucleus", &Nucleus::Create, "Source/BrainModels/Nucleus/");
 
 

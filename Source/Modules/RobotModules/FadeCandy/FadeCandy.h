@@ -54,7 +54,6 @@ public:
     Socket *    socket;
 
     pid_t       fcserver_pid;
-	bool		startServer;
 };
 
 #endif

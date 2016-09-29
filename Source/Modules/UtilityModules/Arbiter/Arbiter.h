@@ -44,11 +44,6 @@ public:
     int         no_of_inputs;
     int         size;
     
-    int         switch_time;
-    int         switch_counter;
-    int         from_channel;
-    int         current_channel;
-
     Arbiter(Parameter * p);
     virtual	~Arbiter();
 

@@ -22,8 +22,6 @@
 
 
 	<parameter name="command" type="string" description="Name of the fadecandy server" default="fcserver-osx" />
-	<parameter name="start_server" type="bool" description="Should the module start the fadecandy server" default="true" />
-
 
 	<input name="*" description="The channels can have arbitrary names" />
 

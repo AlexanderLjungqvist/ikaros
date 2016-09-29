@@ -102,7 +102,7 @@ OutputFile::Init()
 
     const char * n = GetValue("directory");
 
-    if(n)
+    if(n[0])
     {
         int ix = 0;
         dirname = create_formatted_string("%s.%03d", n, ix);

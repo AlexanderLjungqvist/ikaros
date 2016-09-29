@@ -77,7 +77,7 @@ InputFile::InputFile(Parameter * p):
 
     type = GetIntValueFromList("type");
     iteration	= 1;
-    iterations  = GetIntValue("iterations");
+    iterations  = GetIntValue("iterations", 1);
     extend = GetIntValue("extend", 0);
     cur_extension = 0;
     extending = false;

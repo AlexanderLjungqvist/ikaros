@@ -30,7 +30,6 @@ class Scale: public Module
 {
 public:
     float *		input;
-    float *     scale;
     float		factor;
     float *		output;
     int			size;

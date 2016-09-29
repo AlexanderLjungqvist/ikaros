@@ -31,19 +31,10 @@ public:
 	
     float       alpha;
     float       beta;
-
-    float       phi;
-    float       chi;
-    float       psi;
-
-    float       phi_scale;
-    float       chi_scale;
-    float       psi_scale;
-
-    bool        scale;
-    
+    float       gamma;
+    float       delta;
     float       epsilon;
-
+    
     float       x;
     
     float *		excitation;
