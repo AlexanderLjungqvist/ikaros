@@ -1,7 +1,7 @@
 //
-//	Average.h			This file is a part of the IKAROS project
+//	TheEyeTribe.h		This file is a part of the IKAROS project
 //
-//    Copyright (C) 2004-2016  Christian Balkenius
+//    Copyright (C) 2016 Birger Johansson
 //
 //    This program is free software; you can redistribute it and/or modify
 //    it under the terms of the GNU General Public License as published by
@@ -17,41 +17,44 @@
 //    along with this program; if not, write to the Free Software
 //    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 //
+//    See http://www.ikaros-project.org/ for more information.
+//
 
-#ifndef AVERAGE
-#define AVERAGE
+#ifndef TheEyeTribe_
+#define TheEyeTribe_
 
 #include "IKAROS.h"
+#include <gazeapi.h>
 
 
-class Average: public Module
+class TheEyeTribe: public Module
 {
 public:
-    static Module * Create(Parameter * p) { return new Average(p); }
-    
-    int			size;
-    float *		input;
-    float *		op;
-    float *		sum;
-    float **    window;
-    float *		output;
-    long		tick_count;
-    int         type;
-    int         operation;
-    bool        sqrt_flag;
-    int         window_size;
-    int         window_size_last;
-    float       alpha;
-    float       termination_criterion;
-    int         select;
+    static Module * Create(Parameter * p) { return new TheEyeTribe(p); }
 
-    Average(Parameter * p) : Module(p) {}
-    virtual ~Average();
+    TheEyeTribe(Parameter * p) : Module(p) {}
+    virtual ~TheEyeTribe();
 
-    void		Init();
-    void		Tick();
-
+    void	Init();
+    void 	Tick();
+	
+	float * timeStamp;
+	float * raw;
+	float * avg;
+	float * fix;
+	
+	float * leftRaw;
+	float * leftAvg;
+	float * leftPupilSize;
+	float * leftPupilCenter;
+	
+	float * rightRaw;
+	float * rightAvg;
+	float * rightPupilSize;
+	float * rightPupilCenter;
+	
+	int		StartTime;
+	gtl::GazeApi m_api;
 };
-
 
 #endif
